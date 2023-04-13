@@ -122,7 +122,7 @@ export default function Home(){
         const nftContract = new Contract(NFT_ADDRESS,ABI,provider);
         const _owner = await nftContract.owner();
   
-        const signer = getSignerOrProvider(true);
+        const signer = await getSignerOrProvider(true);
         const address = await signer.getAddress();
         if(address.toLowerCase() === _owner.toLowerCase()){
           setIsOwner(true);
@@ -183,7 +183,7 @@ export default function Home(){
       if(loading){
         return (<button className={styles.button}>Loading...</button>);
       }
-      if(!isOwner && !preSaleStarted){
+      if(isOwner && !preSaleStarted){
         return (<button onClick={startPreSale} className={styles.button}>Start Presale</button>);
       }
       if(!preSaleStarted){
